@@ -9,7 +9,18 @@ A SEO optimised replacement for Sarah's Photography portfolio website https://ww
 - [ ] Keep https://storybook.js.org/ to document and test UI
 - [ ] Use https://strapi.io/ as CMS (provides adimin interface for Sarah)
 - [ ] Use https://nextjs.org/ under the hood (SSG mode)
-- [ ] Deploy to https://vercel.com/
+- [x] Deploy to https://vercel.com/
+
+## Sarah's content migration plan
+
+- [ ] About https://www.sbphotography.life/about
+- [ ] Home (grid with links)
+- [ ] Price Guide & Bookings https://www.sbphotography.life/contact-2
+- [ ] Contact Form https://www.sbphotography.life/contact-2
+- [ ] Product and Brand Photography (grid with no links)
+- [ ] Weddings (grid with no links)
+- [ ] Insta feed
+- [ ] Footer (contact details, socials)
 
 ## Objectives
 
