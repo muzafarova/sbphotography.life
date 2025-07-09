@@ -1,6 +1,6 @@
 # Sarah Barlow Photography
 
-A SEO optimised replacement for Sarah's Photography portfolio website https://www.sbphotography.life/about
+A SEO optimised replacement for Sarah's Photography portfolio website https://www.sbphotography.life
 
 ## Initial plan
 
@@ -8,15 +8,25 @@ A SEO optimised replacement for Sarah's Photography portfolio website https://ww
 - [ ] Use https://tailwindcss.com/blog/tailwindcss-v4 for styling
 - [ ] Keep https://storybook.js.org/ to document and test UI
 - [ ] Use https://strapi.io/ as CMS (provides adimin interface for Sarah)
-- [ ] Use https://nextjs.org/ under the hood
+- [ ] Use https://nextjs.org/ under the hood (SSG mode)
 - [ ] Deploy to https://vercel.com/
 
 ## Objectives
 
 - Sarah need to fully own and admin the content
+- SEO
+- Minimal running costs (custom domain paid by Sarah)
 
 ## Development
 
 ```
 npm i && npm run dev
+```
+
+## Deployemnt
+
+Managed by [Vercel CLI](https://vercel.com/docs/cli?package-manager=npm)
+
+```
+vercel
 ```
