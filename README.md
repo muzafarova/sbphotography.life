@@ -25,7 +25,13 @@ npm i && npm run dev
 
 ## Deployemnt
 
-Managed by [Vercel CLI](https://vercel.com/docs/cli?package-manager=npm)
+The app gets deployes as a [**static site**](https://nextjs.org/docs/app/guides/static-exports)
+
+Deploy is managed by [Vercel CLI](https://vercel.com/docs/cli?package-manager=npm)
+
+See [Next.js on Vercel](https://vercel.com/docs/frameworks/nextjs) for more info.
+
+Note Next.js server features aren't available in `static export` mode https://nextjs.org/docs/app/guides/static-exports#unsupported-features
 
 ```
 vercel
