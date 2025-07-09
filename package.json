@@ -1,0 +1,38 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "Sarah Barlow Photography",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/muzafarova/sbphotography.life.git"
+  },
+  "keywords": [
+    "next.js",
+    "react"
+  ],
+  "author": "muzafarova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/muzafarova/sbphotography.life/issues"
+  },
+  "homepage": "https://github.com/muzafarova/sbphotography.life#readme",
+  "dependencies": {
+    "next": "^15.3.5",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.12",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "typescript": "^5.8.3"
+  }
+}
