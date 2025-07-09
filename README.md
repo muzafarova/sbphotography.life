@@ -31,7 +31,7 @@ Deploy is managed by [Vercel CLI](https://vercel.com/docs/cli?package-manager=np
 
 See [Next.js on Vercel](https://vercel.com/docs/frameworks/nextjs) for more info.
 
-Note Next.js server features aren't available in `static export` mode https://nextjs.org/docs/app/guides/static-exports#unsupported-features
+Note Next.js [server features](https://nextjs.org/docs/app/guides/static-exports#unsupported-features) aren't available in `static export` mode.
 
 ```
 vercel
