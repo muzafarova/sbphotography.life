@@ -48,3 +48,13 @@ Links:
 
 - [Next.js on Vercel](https://vercel.com/docs/frameworks/nextjs)
 - [Next's server features](https://nextjs.org/docs/app/guides/static-exports#unsupported-features) aren't available in the `static exports` mode
+
+## Analytics
+
+[Vercel Web Analytics](https://vercel.com/docs/analytics)
+
+## Speed Insights
+
+[Core Web Vitals](https://vercel.com/docs/speed-insights#core-web-vitals-explained) collected by Vercel.
+
+Note: if self-hosting in the future, refer to this https://vercel.com/docs/frameworks/nextjs?package-manager=npm#reportwebvitals
