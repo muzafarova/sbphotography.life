@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
+
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { fetchAllPages, fetchAllPortfolios } from '../lib/api';
@@ -21,7 +23,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <a href="/">
+        <Link href="/">
           <h1>
             <Image
               src="/logo.avif"
@@ -30,15 +32,15 @@ export default async function RootLayout({
               height={202}
             />
           </h1>
-        </a>
+        </Link>
         <nav>
           <li>
-            <a href="/">Home</a>
+            <Link href="/">Home</Link>
           </li>
 
           {items.map((item) => (
             <li key={item.slug}>
-              <a href={'/' + item.slug}>{item.title}</a>
+              <Link href={'/' + item.slug}>{item.title}</Link>
             </li>
           ))}
         </nav>

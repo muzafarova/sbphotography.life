@@ -60,14 +60,14 @@ async function StrapiRequest<T>(path: string, options?: Options) {
     url =
       url +
       '?' +
-      options.populate.map((populate) => `populate=${populate}`).join('&');
+      options.populate.map(populate => `populate=${populate}`).join('&');
   }
   if (options?.filters) {
     url =
       url +
       '&' +
       options.filters
-        .map((filter) => `filters[${filter[0]}][$eq]=${filter[1]}`)
+        .map(filter => `filters[${filter[0]}][$eq]=${filter[1]}`)
         .join('&');
   }
 
@@ -78,7 +78,7 @@ async function StrapiRequest<T>(path: string, options?: Options) {
       data: T | null;
       error: StrapiError | null;
     };
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err);
     return {
       data: null,

@@ -1,5 +1,3 @@
-export interface StrapiError extends Error {}
-
 export type Page = {
   title: string;
   slug: string;

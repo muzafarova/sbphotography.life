@@ -47,9 +47,7 @@ export default async function Page({
   const galleryDocumentId = portfolio?.['photo_gallery']?.documentId;
   let gallery = null;
   if (galleryDocumentId) {
-    const { data, error: galleryError } = await fetchGalleryByDocumentId(
-      galleryDocumentId
-    );
+    const { data } = await fetchGalleryByDocumentId(galleryDocumentId);
     gallery = data;
   }
   const { data: page, error: pageError } = await fetchPageBySlug(slug);
