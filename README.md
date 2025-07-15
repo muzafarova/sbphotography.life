@@ -1,17 +1,21 @@
 # Sarah Barlow Photography
 
-A SEO optimised replacement for Sarah's Photography portfolio website https://www.sbphotography.life
+A SEO optimised replacement for Sarah's Photography portfolio website https://www.sbphotography.life.
+
+## Idea
+
+Implement as static website, put it on CDN. Use headless CMS on the backend. Generate static assets on demand (on code change), and automatically (on content change). Focus on SEO, performance (web vitals), visuals (image quality). Stick to free plans. Minimal to no dev maintenance.
 
 ## Initial plan
 
 - [ ] Recycle existing visual design as is
 - [ ] Use https://tailwindcss.com/blog/tailwindcss-v4 for styling
 - [ ] Keep https://storybook.js.org/ to document and test UI
-- [ ] Use https://strapi.io/ as CMS (provides adimin interface for Sarah)
-- [ ] Use https://nextjs.org/ under the hood (SSG mode)
+- [x] Use https://strapi.io/ as CMS (provides adimin interface for Sarah)
+- [x] Use https://nextjs.org/ under the hood (SSG mode)
 - [x] Deploy to https://vercel.com/
 
-## Sarah's content migration plan
+## Sarah's existing content migration plan
 
 - [ ] About https://www.sbphotography.life/about
 - [ ] Home (grid with links)
