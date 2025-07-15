@@ -1,4 +1,4 @@
-import type { Page, Portfolio, Gallery, StrapiError } from './types';
+import type { Page, Portfolio, Gallery } from './types';
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export function fetchAllPages() {
@@ -60,14 +60,14 @@ async function StrapiRequest<T>(path: string, options?: Options) {
     url =
       url +
       '?' +
-      options.populate.map(populate => `populate=${populate}`).join('&');
+      options.populate.map((populate) => `populate=${populate}`).join('&');
   }
   if (options?.filters) {
     url =
       url +
       '&' +
       options.filters
-        .map(filter => `filters[${filter[0]}][$eq]=${filter[1]}`)
+        .map((filter) => `filters[${filter[0]}][$eq]=${filter[1]}`)
         .join('&');
   }
 
@@ -76,20 +76,26 @@ async function StrapiRequest<T>(path: string, options?: Options) {
     const res = await fetch(url);
     return (await res.json()) as {
       data: T | null;
-      error: StrapiError | null;
+      error: Error | null;
     };
   } catch (err: unknown) {
     console.error(err);
     return {
       data: null,
-      error: new Error(err?.message || 'Something failed'),
+      error: new Error(
+        err instanceof Error
+          ? err.message
+          : typeof err === 'string'
+          ? err
+          : 'Something failed'
+      ),
     };
   }
 }
 
 function fetchBySlugPresetner<T>(res: {
   data: T[] | null;
-  error: StrapiError | null;
+  error: Error | null;
 }) {
   if (res.error) {
     return { data: null, error: res.error };
