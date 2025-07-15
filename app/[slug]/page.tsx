@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 // Return a list of `params` to populate the [slug] dynamic segment
+// [] will result in build error due to https://nextjs.org/docs/app/guides/static-exports#unsupported-features
 export async function generateStaticParams() {
   const { data: portfolios } = await fetchAllPortfolios();
   const { data: pages } = await fetchAllPages();
@@ -33,8 +34,6 @@ export async function generateStaticParams() {
   }));
 }
 
-// Multiple versions of this page will be statically generated
-// using the `params` returned by `generateStaticParams`
 export default async function Page({
   params,
 }: {
