@@ -11,8 +11,13 @@ yarn-debug.log*
 yarn-error.log*
 
 # Environment variables
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 .vercel
+
+# Other
+.DS_Store
+temp/
