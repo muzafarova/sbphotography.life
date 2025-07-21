@@ -1,37 +1,20 @@
-import type { Metadata } from 'next';
 import {
-  fetchAllPages,
-  fetchPageBySlug,
   fetchAllPortfolios,
   fetchPortfolioBySlug,
   fetchGalleryByDocumentId,
 } from '../../lib/api';
 
-import Image from 'next/image';
-import Content from '../../components/Content';
+import { enhancePhotosWithDimensions } from '../../lib/gallery';
+import type { MediaFile } from '../../lib/types';
 
-export const metadata: Metadata = {
-  title: 'Dynamic page',
-};
+import RichTextMarkdown from '../../components/RichTextMarkdown';
+import Gallery from '../../components/Gallery';
 
 // Return a list of `params` to populate the [slug] dynamic segment
 // [] will result in build error due to https://nextjs.org/docs/app/guides/static-exports#unsupported-features
 export async function generateStaticParams() {
   const { data: portfolios } = await fetchAllPortfolios();
-  const { data: pages } = await fetchAllPages();
-  const items: { slug: string }[] = [];
-
-  if (Array.isArray(portfolios)) {
-    items.push(...portfolios);
-  }
-
-  if (Array.isArray(pages)) {
-    items.push(...pages);
-  }
-
-  return items.map((item) => ({
-    slug: item.slug,
-  }));
+  return portfolios || [];
 }
 
 export default async function Page({
@@ -43,41 +26,19 @@ export default async function Page({
   const { data: portfolio, error: portfolioError } = await fetchPortfolioBySlug(
     slug
   );
-  const galleryDocumentId = portfolio?.['photo_gallery']?.documentId;
-  let gallery = null;
-  if (galleryDocumentId) {
-    const { data } = await fetchGalleryByDocumentId(galleryDocumentId);
-    gallery = data;
-  }
-  const { data: page, error: pageError } = await fetchPageBySlug(slug);
 
-  // TODO display errors nicely
-  console.log('fetchPortfolioBySlug', portfolio, portfolioError);
-  console.log('fetchPageBySlug', page, pageError);
+  const galleryDocumentId = portfolio?.gallery?.documentId;
+  let photos: MediaFile[] = [];
+  if (galleryDocumentId) {
+    const { data: gallery } = await fetchGalleryByDocumentId(galleryDocumentId);
+    photos = await enhancePhotosWithDimensions(gallery?.photos || []);
+  }
 
   return (
-    <div>
-      <p>slug: {slug}</p>
-      {gallery && (
-        <section>
-          <div className="gallery">
-            {gallery.photos &&
-              gallery.photos.map((img) => (
-                <Image
-                  key={img.id}
-                  src={img.url}
-                  alt={img.alternativeText || ''}
-                  width={192}
-                  height={128}
-                  loading="lazy"
-                />
-              ))}
-          </div>
-        </section>
-      )}
-      {portfolio && Content(portfolio.content)}
+    <>
+      {<Gallery gallery={{ photos }} />}
 
-      {page && Content(page.content)}
-    </div>
+      {portfolio && RichTextMarkdown(portfolio.content)}
+    </>
   );
 }

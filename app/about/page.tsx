@@ -1,35 +1,36 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
-import { fetchPageByDocumentId } from '../../lib/api';
-import Content from '../../components/Content';
+
+import { StrapiRequest } from '../../lib/api';
+import { MediaFile } from '../../lib/types';
+import RichTextMarkdown from '../../components/RichTextMarkdown';
+
+export const metadata: Metadata = {
+  title: 'About',
+};
+
+type About = {
+  title: string;
+  content: string;
+  image: MediaFile;
+};
 
 export default async function Page() {
-  const { data, error } = await fetchPageByDocumentId(
-    'lh9zupo1bxs047x5ya3x9z3f'
-  );
+  const { data, error } = await StrapiRequest<About>('/about', {
+    populate: ['image'],
+  });
 
   return (
-    <div>
-      {/* TODO display error nicely */}
-      {error && <pre>{JSON.stringify(error)}</pre>}
-
+    <>
       {data && (
-        <>
+        <section>
           <h2>{data.title}</h2>
-
-          {data.illustration && (
-            <Image
-              key={data.illustration.id}
-              src={data.illustration.url}
-              alt=""
-              width={595}
-              height={533}
-              loading="lazy"
-            />
+          {data.image && (
+            <Image src={data.image.url} width={595} height={533} alt="" />
           )}
-
-          {Content(data.content)}
-        </>
+          {RichTextMarkdown(data.content)}
+        </section>
       )}
-    </div>
+    </>
   );
 }

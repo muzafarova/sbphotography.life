@@ -1,14 +1,6 @@
 import type { Page, Portfolio, Gallery } from './types';
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export function fetchAllPages() {
-  return StrapiRequest<Page[]>('/pages');
-}
-
-export async function fetchPageByDocumentId(documentId: string) {
-  return StrapiRequest<Page>(`/pages/${documentId}?populate=illustration`);
-}
-
 export async function fetchPageBySlug(slug: string) {
   const res = await StrapiRequest<Page[]>('/pages', {
     populate: ['illustration'],
@@ -22,28 +14,28 @@ export async function fetchAllPortfolios() {
 }
 
 export async function fetchPortfolioByDocumentId(documentId: string) {
-  return StrapiRequest<Portfolio>(`/portfolios/${documentId}`, {
-    populate: ['photo_gallery'],
-  });
+  return StrapiRequest<Portfolio>(
+    `/portfolios/${documentId}?populate[gallery][populate][0]=photos`
+  );
 }
 
 export async function fetchPortfolioBySlug(slug: string) {
   const res = await StrapiRequest<Portfolio[]>(`/portfolios`, {
-    populate: ['photo_gallery'],
+    populate: ['*'],
     filters: [['slug', slug]],
   });
   return fetchBySlugPresetner<Portfolio>(res);
 }
 
 export async function fetchAllGalleries() {
-  return StrapiRequest<Gallery[]>('/photo-galleries', {
+  return StrapiRequest<Gallery[]>('/galleries', {
     populate: ['photos'],
     filters: [['featured', 'true']],
   });
 }
 
 export async function fetchGalleryByDocumentId(documentId: string) {
-  return StrapiRequest<Gallery>(`/photo-galleries/${documentId}`, {
+  return StrapiRequest<Gallery>(`/galleries/${documentId}`, {
     populate: ['photos'],
   });
 }
@@ -53,7 +45,7 @@ type Options = {
   filters?: [string, string][];
 };
 
-async function StrapiRequest<T>(path: string, options?: Options) {
+export async function StrapiRequest<T>(path: string, options?: Options) {
   let url = apiUrl + path;
 
   if (options?.populate) {

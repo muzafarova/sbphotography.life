@@ -1,34 +1,35 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import { fetchAllGalleries } from '../lib/api';
+import Gallery from '../components/Gallery';
+import type { MediaFile } from '../lib/types';
+import { enhancePhotosWithDimensions } from '../lib/gallery';
 
 export const metadata: Metadata = {
   title: 'Documenting The Art of Life',
 };
 
 export default async function Page() {
-  const SCALE = 2;
-  const { data: featured } = await fetchAllGalleries();
-
+  const { data: featuredGalleries, error } = await fetchAllGalleries();
+  let photos: MediaFile[] = [];
+  if (featuredGalleries) {
+    photos = (
+      await Promise.all(
+        featuredGalleries.map(
+          async (gallery) => await enhancePhotosWithDimensions(gallery.photos)
+        )
+      )
+    ).flat();
+  }
   return (
     <div>
-      {featured &&
-        featured.map((gallery) => (
+      {/* TODO display error nicely */}
+      {error && <pre>{JSON.stringify(error)}</pre>}
+
+      {featuredGalleries &&
+        featuredGalleries.map((gallery) => (
           <section key={gallery.documentId}>
             <h2>{gallery.title}</h2>
-            <div className="gallery">
-              {gallery.photos &&
-                gallery.photos.map((img) => (
-                  <Image
-                    key={img.id}
-                    src={img.url}
-                    alt={img.alternativeText || ''}
-                    width={192 * SCALE}
-                    height={128 * SCALE}
-                    loading="lazy"
-                  />
-                ))}
-            </div>
+            <Gallery gallery={{ ...gallery, photos }} />
           </section>
         ))}
     </div>

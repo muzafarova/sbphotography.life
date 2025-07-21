@@ -3,27 +3,33 @@ export type Page = {
   slug: string;
   documentId: string;
   content: Content;
-  illustration?: Image;
+  illustration?: MediaFile;
 };
 
 export type Portfolio = {
   title: string;
   slug: string;
   documentId: string;
-  content: Content;
-  photo_gallery: Gallery;
+  content?: string;
+  gallery?: Gallery;
 };
 
 export type Gallery = {
   documentId: string;
   title: string;
-  photos: null | Image[];
+  photos: MediaFile[];
 };
 
-export type Image = {
+export type MediaFile = {
   id: string;
   url: string;
+  ext: string;
+  width: number;
+  height: number;
   alternativeText: null | string;
+  provider_metadata: {
+    public_id: string;
+  };
 };
 
 export type Text = {
