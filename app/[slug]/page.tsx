@@ -23,9 +23,7 @@ export default async function Page({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const { data: portfolio, error: portfolioError } = await fetchPortfolioBySlug(
-    slug
-  );
+  const { data: portfolio } = await fetchPortfolioBySlug(slug);
 
   const galleryDocumentId = portfolio?.gallery?.documentId;
   let photos: MediaFile[] = [];

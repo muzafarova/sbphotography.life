@@ -16,7 +16,7 @@ type About = {
 };
 
 export default async function Page() {
-  const { data, error } = await StrapiRequest<About>('/about', {
+  const { data } = await StrapiRequest<About>('/about', {
     populate: ['image'],
   });
 
