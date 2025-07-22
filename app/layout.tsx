@@ -21,6 +21,8 @@ export default async function RootLayout({
     );
   }
 
+  // TODO add default meta tags
+
   return (
     <html lang="en">
       <body>

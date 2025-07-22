@@ -4,10 +4,7 @@ import Image from 'next/image';
 import { StrapiRequest } from '../../lib/api';
 import { MediaFile } from '../../lib/types';
 import RichTextMarkdown from '../../components/RichTextMarkdown';
-
-export const metadata: Metadata = {
-  title: 'About',
-};
+import { enhancePhotoWithDimensions } from '../../lib/photos';
 
 type About = {
   title: string;
@@ -15,20 +12,32 @@ type About = {
   image: MediaFile;
 };
 
-export default async function Page() {
-  const { data } = await StrapiRequest<About>('/about', {
-    populate: ['image'],
-  });
+const { data } = await StrapiRequest<About>('/about', {
+  populate: ['image'],
+});
 
+export const metadata: Metadata = {
+  title: data?.title || 'About',
+};
+
+export default async function Page() {
+  const enhancedImage = data?.image
+    ? await enhancePhotoWithDimensions(data.image)
+    : null;
   return (
     <>
       {data && (
         <section>
           <h2>{data.title}</h2>
-          {data.image && (
-            <Image src={data.image.url} width={595} height={533} alt="" />
+          {enhancedImage && (
+            <Image
+              src={enhancedImage.url}
+              width={enhancedImage?.width / 2}
+              height={enhancedImage?.height / 2}
+              alt=""
+            />
           )}
-          {RichTextMarkdown(data.content)}
+          <RichTextMarkdown markdown={data.content} />
         </section>
       )}
     </>

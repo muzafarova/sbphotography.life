@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { fetchAllGalleries } from '../lib/api';
 import Gallery from '../components/Gallery';
 import type { MediaFile } from '../lib/types';
-import { enhancePhotosWithDimensions } from '../lib/gallery';
+import { enhancePhotoWithDimensions } from '../lib/photos';
 
 export const metadata: Metadata = {
   title: 'Documenting The Art of Life',
@@ -15,7 +15,8 @@ export default async function Page() {
     photos = (
       await Promise.all(
         featuredGalleries.map(
-          async (gallery) => await enhancePhotosWithDimensions(gallery.photos)
+          async (gallery) =>
+            await Promise.all(gallery.photos.map(enhancePhotoWithDimensions))
         )
       )
     ).flat();

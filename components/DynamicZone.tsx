@@ -1,8 +1,7 @@
 import Image from 'next/image';
-import type { MediaFile } from '../lib/types';
 
-// https://marked.js.org/using_advanced#options
-import Markdown from 'marked-react';
+import type { MediaFile } from '../lib/types';
+import RichTextMarkdown from './RichTextMarkdown';
 
 type MediaBlock = {
   __component: 'shared.media';
@@ -19,14 +18,14 @@ export type DynamicZoneBlock = MediaBlock | RichTextBlock;
 export function renderDynamicZone(block: DynamicZoneBlock, i: number) {
   switch (block.__component) {
     case 'shared.rich-text':
-      return <Markdown key={i}>{block.body}</Markdown>;
+      return <RichTextMarkdown key={i} markdown={block.body} />;
     case 'shared.media':
       return (
         <Image
           key={i}
           src={block.image.url}
-          width={595}
-          height={533}
+          width={block.image.width / 2}
+          height={block.image.height / 2}
           loading="lazy"
           alt={block.image.alternativeText || ''}
         />
