@@ -1,9 +1,31 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { fetchAllPortfolios } from '../lib/api';
+import { fetchAllPortfolios, StrapiRequest } from '../lib/api';
+
+import './globals.css';
+
+export async function generateMetadata() {
+  const defaultMeta = {
+    siteName: 'Sarah Barlow, Photographic Artist',
+    siteDescription:
+      'Documenting The Art of Life. Family, motherhood and weddings. Essex, United Kingdom',
+  };
+  try {
+    const { data: global } = await StrapiRequest<{
+      siteName: string;
+      siteDescription: string;
+    }>('/global');
+
+    return {
+      title: global?.siteName || defaultMeta.siteName,
+      description: global?.siteDescription || defaultMeta.siteDescription,
+    };
+  } catch (err) {
+    return defaultMeta;
+  }
+}
 
 export default async function RootLayout({
   children,
@@ -20,8 +42,6 @@ export default async function RootLayout({
       { slug: 'about', title: 'About' }
     );
   }
-
-  // TODO add default meta tags
 
   return (
     <html lang="en">
