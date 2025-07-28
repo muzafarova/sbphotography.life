@@ -1,1 +1,49 @@
 @import 'tailwindcss';
+
+:root {
+    --txt: rgb(68, 68, 68);
+    --bgs: rgb(237, 233, 225);
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
+}
+
+main {
+    color: var(--txt);
+    @apply text-sm leading-5;
+
+    h1 {
+        @apply text-3xl font-normal mt-6 mb-12 text-black;
+    }
+
+    h2 {
+        @apply text-lg font-normal mt-2 mb-4 text-black;
+    }
+
+    h3 {
+        @apply text-base leading-5 font-normal mt-4 mb-2 text-black;
+    }
+
+    b,
+    strong {
+        @apply font-medium
+    }
+
+    ul {
+        @apply my-5;
+    }
+
+    p {
+        @apply my-5;
+    }
+
+    hr {
+        @apply w-10 text-black/30 mx-auto my-6
+    }
+}

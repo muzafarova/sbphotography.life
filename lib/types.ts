@@ -1,9 +1,20 @@
-export type Page = {
+export type Seo = {
+  metaTitle?: string;
+  metaDescription?: string;
+};
+
+export type Global = {
+  siteName: string;
+  siteDescription: string;
+  whatsappLink?: string;
+  calendarLink?: string;
+};
+
+export type About = {
   title: string;
-  slug: string;
-  documentId: string;
-  content: Content;
-  illustration?: MediaFile;
+  content: string;
+  image: MediaFile;
+  seo: Seo | null;
 };
 
 export type Portfolio = {
@@ -12,6 +23,8 @@ export type Portfolio = {
   documentId: string;
   content?: string;
   gallery?: Gallery;
+  services: { title: string; description: string }[];
+  seo: Seo | null;
 };
 
 export type Gallery = {
@@ -31,6 +44,18 @@ export type MediaFile = {
     public_id: string;
   };
 };
+
+export type MediaBlock = {
+  __component: 'shared.media';
+  image: MediaFile;
+};
+
+export type RichTextBlock = {
+  __component: 'shared.rich-text';
+  body: string;
+};
+
+export type DynamicBlock = MediaBlock | RichTextBlock;
 
 export type Text = {
   type: 'text';

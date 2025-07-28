@@ -1,13 +1,5 @@
-import type { Page, Portfolio, Gallery } from './types';
+import type { Global, Portfolio, Gallery } from './types';
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
-export async function fetchPageBySlug(slug: string) {
-  const res = await StrapiRequest<Page[]>('/pages', {
-    populate: ['illustration'],
-    filters: [['slug', slug]],
-  });
-  return fetchBySlugPresetner<Page>(res);
-}
 
 export async function fetchAllPortfolios() {
   return StrapiRequest<Portfolio[]>('/portfolios');
@@ -32,6 +24,10 @@ export async function fetchAllGalleries() {
     populate: ['photos'],
     filters: [['featured', 'true']],
   });
+}
+
+export async function fetchGlobal() {
+  return await StrapiRequest<Global>('/global');
 }
 
 export async function fetchGalleryByDocumentId(documentId: string) {

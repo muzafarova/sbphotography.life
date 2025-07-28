@@ -18,7 +18,11 @@ export type DynamicZoneBlock = MediaBlock | RichTextBlock;
 export function renderDynamicZone(block: DynamicZoneBlock, i: number) {
   switch (block.__component) {
     case 'shared.rich-text':
-      return <RichTextMarkdown key={i} markdown={block.body} />;
+      return (
+        <div key={i}>
+          <RichTextMarkdown markdown={block.body} />
+        </div>
+      );
     case 'shared.media':
       return (
         <Image

@@ -23,16 +23,29 @@ export default async function Page() {
   }
   return (
     <div>
-      {/* TODO display error nicely */}
-      {error && <pre>{JSON.stringify(error)}</pre>}
 
       {featuredGalleries &&
         featuredGalleries.map((gallery) => (
-          <section key={gallery.documentId}>
-            <h2>{gallery.title}</h2>
-            <Gallery gallery={{ ...gallery, photos }} />
+          <section key={gallery.documentId} className="mb-8">
+            <h1 className="text-2xl font-normal mb-8">{gallery.title}</h1>
+            <div className="px-4">
+              <Gallery title={gallery.title} photos={photos} />
+            </div>
           </section>
         ))}
+
+      <section className="bg-stone-100">
+        <a className="block pt-12 text-xl font-medium" href="https://www.instagram.com/sarahbarlowphotography" target="_blank">
+          Follow Sarah in instagram{' '}
+          <span className="font-medium text-sky-600">
+            @sarahbarlowphotography
+            </span>
+          </a>
+        <iframe
+          src="https://embedsocial.com/api/pro_hashtag/69df190034115686f9f3a422c97ee13efba8f0ae"
+          className="w-full h-120"
+        />
+      </section>
     </div>
   );
 }

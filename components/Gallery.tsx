@@ -1,28 +1,27 @@
-'use client';
-
-import { CldImage } from 'next-cloudinary';
-import { MediaFile } from '../lib/types';
+import Photo from '../components/Photo';
+import type { MediaFile } from '../lib/types';
 
 export default function Gallery({
-  gallery,
+  title,
+  photos,
 }: {
-  gallery: {
-    photos: MediaFile[];
-  };
+  title?: string;
+  photos: MediaFile[];
 }) {
   return (
-    <>
-      {gallery.photos.map((img) => {
-        return (
-          <CldImage
-            key={img.id}
-            src={img.url}
-            width={img.width / 2}
-            height={img.height / 2}
-            alt=""
-          />
-        );
-      })}
-    </>
+    <div
+      className={`grid gap-4 ${
+        photos.length < 4 ? 'grid-cols-1 mx-auto' : 'md:grid-cols-2'
+      }`}
+    >
+      {photos.map((photo, i) => (
+        <div
+          key={photo.url}
+          // className={!(i % 3) ? 'col-span-2 row-span-2' : ''}
+        >
+          <Photo photo={photo} />
+        </div>
+      ))}
+    </div>
   );
 }

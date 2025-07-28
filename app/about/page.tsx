@@ -2,22 +2,18 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 
 import { StrapiRequest } from '../../lib/api';
-import { MediaFile } from '../../lib/types';
+import { About } from '../../lib/types';
 import RichTextMarkdown from '../../components/RichTextMarkdown';
+import Heading from '../../components/Heading';
 import { enhancePhotoWithDimensions } from '../../lib/photos';
 
-type About = {
-  title: string;
-  content: string;
-  image: MediaFile;
-};
-
 const { data } = await StrapiRequest<About>('/about', {
-  populate: ['image'],
+  populate: ['*'],
 });
 
 export const metadata: Metadata = {
-  title: data?.title || 'About',
+  title: data?.seo?.metaTitle || data?.title,
+  description: data?.seo?.metaDescription || data?.content.split('\n')[0],
 };
 
 export default async function Page() {
@@ -27,17 +23,25 @@ export default async function Page() {
   return (
     <>
       {data && (
-        <section>
-          <h2>{data.title}</h2>
-          {enhancedImage && (
-            <Image
-              src={enhancedImage.url}
-              width={enhancedImage?.width / 2}
-              height={enhancedImage?.height / 2}
-              alt=""
-            />
-          )}
-          <RichTextMarkdown markdown={data.content} />
+        <section className="max-w-7xl mx-auto pb-20">
+          <Heading>{data.title}</Heading>
+          <div className="flex flex-wrap gap-12 justify-center items-start mb-20">
+            {enhancedImage && (
+              <div>
+                <Image
+                  src={enhancedImage.url}
+                  width={enhancedImage?.width / 2}
+                  height={enhancedImage?.height / 2}
+                  alt={enhancedImage.alternativeText || ''}
+                />
+              </div>
+            )}
+            <div className="w-80 shrink-0">
+              <div className="text-base text-left">
+                <RichTextMarkdown markdown={data.content} />
+              </div>
+            </div>
+          </div>
         </section>
       )}
     </>
