@@ -8,9 +8,8 @@ Implement as static website, put it on CDN. Use headless CMS on the backend. Gen
 
 ## Initial plan
 
-- [ ] Recycle existing visual design as is
-- [ ] Use https://tailwindcss.com/blog/tailwindcss-v4 for styling
-- [ ] Keep https://storybook.js.org/ to document and test UI
+- [x] Recycle existing visual design as is
+- [x] Use https://tailwindcss.com/blog/tailwindcss-v4 for styling
 - [x] Use https://strapi.io/ as CMS (provides adimin interface for Sarah)
 - [x] Use https://nextjs.org/ under the hood (SSG mode)
 - [x] Deploy to https://vercel.com/
@@ -20,7 +19,7 @@ Implement as static website, put it on CDN. Use headless CMS on the backend. Gen
 - [ ] About https://www.sbphotography.life/about
 - [ ] Home (grid with links)
 - [ ] Price Guide & Bookings https://www.sbphotography.life/contact-2
-- [ ] Contact Form https://www.sbphotography.life/contact-2
+- [ ] ~Contact Form https://www.sbphotography.life/contact-2~ replacing with Calendly & WhatsApp link
 - [ ] Product and Brand Photography (grid with no links)
 - [ ] Weddings (grid with no links)
 - [ ] Insta feed
